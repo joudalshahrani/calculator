@@ -4,7 +4,6 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Calculator — Demo</title>
-  <!-- إذا تريدي يستخدم ستايل الموقع العام خليه، وإلا هذا داخلي وسيعمل لوحده -->
   <link rel="stylesheet" href="style.css">
   <style>
     :root{
@@ -12,7 +11,7 @@
       --card: #fff;
       --ink: #0b1220;
       --muted: #6b7280;
-      --accent: #ff6fb5; /* لطيف لكن غير مبالغ */
+      --accent: #ff6fb5; 
       --accent-2: #ff9ac2;
     }
     body{ margin:0; font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial; background:linear-gradient(180deg,#fff,#fff3f8); color:var(--ink); -webkit-font-smoothing:antialiased;}
@@ -119,7 +118,6 @@
       }
 
       function append(ch){
-        // map symbols for display but keep expression chars for evaluation
         if(ch === '÷') ch = '/';
         if(ch === '×') ch = '*';
         if(ch === '−') ch = '-';
@@ -132,10 +130,8 @@
       }
 
       function safeEval(s){
-        // allow only digits, operators, parentheses, decimal, spaces
         if(!/^[0-9+\-*/().\s%]+$/.test(s)) return null;
         try{
-          // replace multiple operators like 5--2 -> 5- -2 OK for JS, but keep simple
           const fn = Function('"use strict"; return (' + s + ')');
           return fn();
         }catch(e){
@@ -145,7 +141,6 @@
 
       function evaluate(){
         if(!expr) return;
-        // convert percent usage already turned into /100 earlier if user pressed %
         const result = safeEval(expr);
         if(result === null || result === undefined || Number.isNaN(result)){
           display.textContent = "Error";
